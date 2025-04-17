@@ -1,6 +1,9 @@
 extends Area2D
 
 @export var Velocidad:int=500
+var PuedoInteractuar=false
+
+
 
 func _process(delta: float) -> void:
 	#-------Movimiento-----------
@@ -16,3 +19,13 @@ func _process(delta: float) -> void:
 	if velocity.length() > 0:
 		velocity = velocity.normalized() * Velocidad
 	position += velocity * delta
+
+func Linterna():
+	if Input.is_action_just_pressed("linterna"):
+		PuedoInteractuar=true
+		get_tree().create_timer(5).timeout
+		PuedoInteractuar=false
+
+func Interactuar():
+	if Input.is_action_just_pressed("interaccion") and PuedoInteractuar==true:
+		pass
