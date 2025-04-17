@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://qsw4t7mcbhvw"]
+
+[ext_resource type="Texture2D" uid="uid://b1wf4gtop4b1i" path="res://icon.svg" id="1_2ffh0"]
+[ext_resource type="Script" uid="uid://bpdfe0qbdrwqf" path="res://Scene/Enemigo/enemigo.gd" id="1_tkmqg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_tkmqg"]
+radius = 62.0322
+
+[node name="Enemigo" type="Area2D"]
+script = ExtResource("1_tkmqg")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+modulate = Color(1, 0.380392, 0.301961, 1)
+texture = ExtResource("1_2ffh0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_tkmqg")
+
+[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
+path_postprocessing = 1
