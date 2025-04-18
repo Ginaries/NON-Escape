@@ -7,6 +7,7 @@ var jugador_cercano: Node = null
 func intentar_interactuar(jugador):
 	if jugador == jugador_cercano:
 		print(jugador.name + " agarró la llave")
+		Global.LlavesPendiente -= 1
 		queue_free()
 
 

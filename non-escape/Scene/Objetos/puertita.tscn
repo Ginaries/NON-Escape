@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://16cmr0f2qx4e"]
+
+[ext_resource type="Script" uid="uid://sdw3jsikbdyw" path="res://Scene/Objetos/puertita.gd" id="1_0duk6"]
+[ext_resource type="Texture2D" uid="uid://vowoi2imxide" path="res://Assets/Objetos/WhatsApp Image 2025-04-17 at 21.38.14.jpeg" id="2_1bb04"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1bb04"]
+size = Vector2(400, 455)
+
+[node name="Puertita" type="Area2D" groups=["puerta"]]
+script = ExtResource("1_0duk6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 6.5)
+shape = SubResource("RectangleShape2D_1bb04")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+texture = ExtResource("2_1bb04")
+
+[node name="Ocultar" type="Timer" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Ocultar" to="." method="_on_ocultar_timeout"]
