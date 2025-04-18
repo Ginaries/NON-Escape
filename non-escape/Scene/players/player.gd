@@ -1,44 +1,50 @@
-extends Area2D
+extends CharacterBody2D
 
-@export var Velocidad: int = 500
-var PuedoInteractuar = false
+@export var velocidad: float = 300.0  # Cambiado a float para mayor precisión
+@export var puede_interactuar: bool = false
 var enemigo: Node = null
-@onready var audio_stream_player_2d: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+@onready var detector_interaccion: Area2D = $Detector_Interaccion
+@onready var audio_stream_player: AudioStreamPlayer2D = $AudioStreamPlayer2D
+
+signal interactuando
 
 func _ready():
-	enemigo = get_tree().get_root().get_node("Main/Enemigo") # Ajustá el path
+	enemigo = get_tree().get_root().get_node_or_null("Main/Enemigo")
 
-func _process(delta: float) -> void:
-	var velocity = Vector2.ZERO
+func _physics_process(delta: float) -> void:
+	var input_direction = Vector2(
+		Input.get_axis("izq", "der"),  # Método más eficiente para obtener inputs
+		Input.get_axis("up", "down")
+	)
 	
-	if Input.is_action_pressed("der"):
-		velocity.x += 1
-	if Input.is_action_pressed("izq"):
-		velocity.x -= 1
-	if Input.is_action_pressed("down"):
-		velocity.y += 1
-	if Input.is_action_pressed("up"):
-		velocity.y -= 1
-	
-	if velocity.length() > 0:
-		velocity = velocity.normalized() * Velocidad
-		position += velocity * delta
-		if not audio_stream_player_2d.playing:
-			audio_stream_player_2d.play()
+	# Aplicamos movimiento solo si hay input
+	if input_direction != Vector2.ZERO:
+		velocity = input_direction.normalized() * velocidad
+		move_and_slide()  # No multiplicamos por delta aquí (Godot lo maneja internamente)
+		
+		if not audio_stream_player.playing:
+			audio_stream_player.play()
 	else:
-		audio_stream_player_2d.stop()
+		audio_stream_player.stop()
+		velocity = Vector2.ZERO  # Aseguramos que se detenga completamente
 
-	Linterna()
-	Interactuar()
+	# Resto de funciones
+	linterna()
+	interactuar()
 
-
-func Linterna():
+func linterna():
 	if Input.is_action_just_pressed("linterna"):
-		PuedoInteractuar = true
+		puede_interactuar = true
 		await get_tree().create_timer(5).timeout
-		PuedoInteractuar = false
+		puede_interactuar = false
 
-func Interactuar():
-	if Input.is_action_just_pressed("interaccion") and PuedoInteractuar:
+func interactuar():
+	if Input.is_action_just_pressed("interaccion") and puede_interactuar:
+		emit_signal("interactuando")
 		if enemigo:
 			enemigo.set_target(self)
+
+		for area in detector_interaccion.get_overlapping_areas():
+			if area.has_method("intentar_interactuar"):
+				area.intentar_interactuar(self)
