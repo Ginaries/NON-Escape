@@ -11,6 +11,7 @@ config_version=5
 [application]
 
 config/name="NON Escape"
+run/main_scene="uid://bx8f8oedtbm8g"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
