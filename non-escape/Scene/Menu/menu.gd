@@ -10,6 +10,8 @@ func _ready():
 func _process(delta):
 	if Input.is_action_just_pressed("ui_accept"):
 		start_transition()
+	if Input.is_action_just_pressed("Escape"):
+		get_tree().quit()
 
 func start_transition():
 	tween = create_tween().set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
@@ -22,5 +24,5 @@ func start_transition():
 		tween.parallel().tween_property(self, "position:y", randf_range(-shake_strength, shake_strength), 0.05)
 	
 	tween.tween_callback(func():
-		get_tree().change_scene_to_file("res://Scene/Main/main.tscn")
+		get_tree().change_scene_to_file("res://Scene/Explicacion/control.tscn")
 	)

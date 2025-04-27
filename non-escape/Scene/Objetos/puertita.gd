@@ -3,9 +3,9 @@ extends Area2D
 @onready var ocultar: Timer = $Ocultar
 
 
-func MostrarPuerta():
+func Mostrar():
 	sprite_2d.visible=true
-	ocultar.start(2.0)
+	ocultar.start(1.0)
 
 func Alejado():
 	ocultar.stop()
@@ -15,7 +15,8 @@ func _on_ocultar_timeout() -> void:
 	sprite_2d.visible=false
 
 func CambioDeEscena():
-	Global.SiguienteNivel()
+	if Global.PuertaAbierta==true:
+		Global.SiguienteNivel()
 
 
 

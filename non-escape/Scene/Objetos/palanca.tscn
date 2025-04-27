@@ -1,0 +1,61 @@
+[gd_scene load_steps=8 format=3 uid="uid://cpmrridv7exn6"]
+
+[ext_resource type="Script" uid="uid://x2cfaagg5ebe" path="res://Scene/Objetos/palanca.gd" id="1_7yiay"]
+[ext_resource type="Texture2D" uid="uid://nplswj2xwai6" path="res://Assets/Objetos/Palanca.png" id="2_j0cdg"]
+[ext_resource type="Texture2D" uid="uid://f686gta4rbve" path="res://Assets/Objetos/Palanca 2.png" id="3_eretw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gcgyq"]
+atlas = ExtResource("2_j0cdg")
+region = Rect2(796, 438, 250, 250)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_edc65"]
+atlas = ExtResource("3_eretw")
+region = Rect2(796, 438, 250, 250)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6e2nu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gcgyq")
+}],
+"loop": true,
+"name": &"Close",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_edc65")
+}],
+"loop": true,
+"name": &"Open",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7yiay"]
+radius = 113.265
+
+[node name="Palanca" type="Area2D"]
+scale = Vector2(0.37579, 0.312327)
+script = ExtResource("1_7yiay")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = SubResource("SpriteFrames_6e2nu")
+animation = &"Close"
+
+[node name="ProgressBar" type="ProgressBar" parent="AnimatedSprite2D"]
+offset_left = -127.731
+offset_top = 150.484
+offset_right = 136.269
+offset_bottom = 190.484
+max_value = 1000.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7yiay")
+
+[node name="Ocultar" type="Timer" parent="."]
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]

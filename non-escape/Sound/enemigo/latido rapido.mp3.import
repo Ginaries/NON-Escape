@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ctj3n60j8nru0"
+path="res://.godot/imported/latido rapido.mp3-74ae73eeb82c0f2e7f939cbf14bfb9c1.mp3str"
+
+[deps]
+
+source_file="res://Sound/enemigo/latido rapido.mp3"
+dest_files=["res://.godot/imported/latido rapido.mp3-74ae73eeb82c0f2e7f939cbf14bfb9c1.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

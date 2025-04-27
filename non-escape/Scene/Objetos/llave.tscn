@@ -1,20 +1,25 @@
 [gd_scene load_steps=4 format=3 uid="uid://bbwd8g00agiuj"]
 
 [ext_resource type="Script" uid="uid://dr7sxj6rjnpcb" path="res://Scene/Objetos/llave.gd" id="1_ccspo"]
-[ext_resource type="Texture2D" uid="uid://b1wf4gtop4b1i" path="res://icon.svg" id="2_cycav"]
+[ext_resource type="Texture2D" uid="uid://tcyt7s7v25dy" path="res://Assets/Objetos/llave do.png" id="2_cycav"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_t0mo2"]
+radius = 21.0238
 
-[node name="Llave" type="Area2D"]
+[node name="Llave" type="Area2D" groups=["Llave"]]
 script = ExtResource("1_ccspo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_t0mo2")
 
 [node name="Icon" type="Sprite2D" parent="."]
-position = Vector2(-3.57628e-07, 3.57628e-07)
-scale = Vector2(0.140625, 0.140625)
+visible = false
+position = Vector2(10, 7)
+scale = Vector2(0.127348, 0.12979)
 texture = ExtResource("2_cycav")
+
+[node name="ocultar" type="Timer" parent="."]
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="ocultar" to="." method="_on_ocultar_timeout"]

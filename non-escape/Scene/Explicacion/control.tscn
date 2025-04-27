@@ -1,0 +1,172 @@
+[gd_scene load_steps=9 format=3 uid="uid://b0vb1n436u7nb"]
+
+[ext_resource type="Script" uid="uid://cnrp61wt4odm2" path="res://Scene/Explicacion/control.gd" id="1_w6ucq"]
+[ext_resource type="Texture2D" uid="uid://v23rrh8o1ws3" path="res://Assets/Teclas/asdw.png" id="2_8n3h7"]
+[ext_resource type="Texture2D" uid="uid://3nvuhu4rgwp1" path="res://Assets/Teclas/flechas.png" id="3_w6ucq"]
+[ext_resource type="Shader" uid="uid://d4cdykr74hfla" path="res://Scene/Main/main.gdshader" id="4_w6ucq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sy35h"]
+shader = ExtResource("4_w6ucq")
+shader_parameter/overlay = false
+shader_parameter/resolution = Vector2(640, 480)
+shader_parameter/brightness = 1.4
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_width = 0.0
+shader_parameter/grille_opacity = 0.359
+shader_parameter/roll = false
+shader_parameter/roll_speed = 8.0
+shader_parameter/roll_size = 15.0
+shader_parameter/roll_variation = 2.216
+shader_parameter/distort_intensity = 0.0
+shader_parameter/aberration = 4.75e-08
+shader_parameter/noise_opacity = 0.408
+shader_parameter/noise_speed = 15.0
+shader_parameter/static_noise_intensity = 0.06
+shader_parameter/pixelate = true
+shader_parameter/discolor = true
+shader_parameter/warp_amount = 1.0
+shader_parameter/clip_warp = false
+shader_parameter/vignette_intensity = 0.4
+shader_parameter/vignette_opacity = 1.0
+
+[sub_resource type="Animation" id="Animation_w6ucq"]
+resource_name = "Parpadeo"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1.01, 1.99),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0), Color(1, 1, 1, 0.989899)]
+}
+
+[sub_resource type="Animation" id="Animation_sy35h"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label3:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5ggl"]
+_data = {
+&"Parpadeo": SubResource("Animation_w6ucq"),
+&"RESET": SubResource("Animation_sy35h")
+}
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_w6ucq")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -453.0
+offset_top = -398.0
+offset_right = 2266.0
+offset_bottom = 1438.0
+color = Color(0, 0, 0, 1)
+
+[node name="Movimiento" type="Label" parent="."]
+layout_mode = 2
+offset_left = 443.0
+offset_top = 234.0
+offset_right = 1444.0
+offset_bottom = 633.0
+theme_override_font_sizes/font_size = 46
+text = "Jugador 1
+Movimiento:
+
+
+Jugador 2
+Movimiento:"
+horizontal_alignment = 1
+
+[node name="ColorRect2" type="ColorRect" parent="Movimiento"]
+layout_mode = 0
+offset_left = 425.0
+offset_top = 129.928
+offset_right = 584.0
+offset_bottom = 210.928
+
+[node name="Sprite2D" type="Sprite2D" parent="Movimiento"]
+position = Vector2(503, 169.928)
+scale = Vector2(0.290235, 0.230188)
+texture = ExtResource("2_8n3h7")
+
+[node name="ColorRect3" type="ColorRect" parent="Movimiento"]
+layout_mode = 0
+offset_left = 422.0
+offset_top = 410.928
+offset_right = 581.0
+offset_bottom = 491.928
+
+[node name="Sprite2D2" type="Sprite2D" parent="Movimiento"]
+position = Vector2(500, 450.928)
+scale = Vector2(0.290235, 0.230188)
+texture = ExtResource("3_w6ucq")
+
+[node name="Acciones" type="Label" parent="."]
+visible = false
+layout_mode = 2
+offset_left = 365.0
+offset_top = 166.0
+offset_right = 1483.0
+offset_bottom = 900.0
+theme_override_font_sizes/font_size = 46
+text = "Jugador 1
+Linterna:
+Q
+Interactuar (Solo si la linterna esta activa)
+E
+
+Jugador 2
+Linterna:
+ShiftRight
+Interactuar (Solo si la linterna esta activa)
+Enter"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 2
+offset_left = 1254.0
+offset_top = 921.0
+offset_right = 2255.0
+offset_bottom = 1320.0
+theme_override_font_sizes/font_size = 46
+text = "Presione ENTER  para Continuar"
+
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer2"]
+material = SubResource("ShaderMaterial_sy35h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_j5ggl")
+}
+autoplay = "Parpadeo"
